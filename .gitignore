@@ -1,1 +1,5 @@
 application/models.py
+venv/
+*.pyc
+__pycache__/
+.env
