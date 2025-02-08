@@ -1,10 +1,3 @@
-import os
-
-class Config:
-    SECRET_KEY = os.environ.get('SECRET_KEY') or 'your-secret-key-here'
-    MONGODB_HOST = 'mongodb+srv://shahin:<your_actual_password>@cluster0.il8xc.mongodb.net/UTA_Enrollment?retryWrites=true&w=majority'
-    
-# __init__.py
 from flask import Flask
 from config import Config
 from flask_mongoengine import MongoEngine
@@ -13,18 +6,22 @@ import os
 app = Flask(__name__)
 app.config.from_object(Config)
 
-# Configure MongoDB Atlas connection
+# Updated MongoDB Atlas configuration
 app.config['MONGODB_SETTINGS'] = {
-    'host': app.config['MONGODB_HOST'],
+    'host': 'mongodb+srv://shahin:memmedshahin12@cluster0.il8xc.mongodb.net/UTA_Enrollment',
     'connect': True,
+    'tls': True,
+    'tlsAllowInvalidCertificates': False,
+    'retryWrites': True,
+    'w': 'majority',
     'connectTimeoutMS': 30000,
     'socketTimeoutMS': 30000,
     'serverSelectionTimeoutMS': 30000
 }
 
-# Initialize MongoDB
-db = MongoEngine()
-db.init_app(app)
+db = MongoEngine(app)
+
+from application import routes
 
 # Import routes after db initialization
 from application import routes
