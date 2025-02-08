@@ -11,7 +11,7 @@ def configure_db():
     Configure MongoDB connection for both local and Heroku environments
     """
     # Get MongoDB URI from environment variable (Heroku) or use local default
-    mongodb_uri = os.environ.get("MONGODB_URI", "mongodb+srv://shahin:memmedshahin12@cluster0.il8xc.mongodb.net/myDatabase?retryWrites=true&w=majority")
+    mongodb_uri = os.environ.get("MONGODB_URI", "mongodb+srv://shahin:memmedshahin12@cluster0.il8xc.mongodb.net/UTA_Enrollment?retryWrites=true&w=majority")
     
     if mongodb_uri:
         # Parse username and password from mongodb_uri
