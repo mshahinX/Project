@@ -27,7 +27,7 @@ def login():
             flash("Something went wrong.","danger")
     return render_template("login.html",title = "Login", form = form, login=True)
 
-@app.route("/courses/")
+@app.route("/courses/",methods = ['GET','POST'])
 @app.route("/courses/<term>")
 def courses(term = None):
     if term is None:
