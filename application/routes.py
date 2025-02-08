@@ -27,7 +27,7 @@ def login():
             flash("Something went wrong.","danger")
     return render_template("login.html",title = "Login", form = form, login=True)
 
-@app.route("/courses/",methods = ['GET','POST'])
+"""@app.route("/courses/",methods = ['GET','POST'])
 @app.route("/courses/<term>")
 def courses(term = None):
     if term is None:
@@ -37,6 +37,19 @@ def courses(term = None):
 
 
     return render_template("courses.html",courseData=classes,courses=True,term=term)
+"""
+
+@app.route("/classes",methods = ['GET','POST'])
+def courses(term = None):
+    if term is None:
+        term = "Spring 2019"
+    
+    classes = Course.objects.all()
+
+
+    return render_template("courses.html",courseData=classes,courses=True,term=term)
+
+
 
 @app.route("/register",methods = ['GET','POST'])
 def register():
