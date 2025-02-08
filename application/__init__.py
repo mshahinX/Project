@@ -1,3 +1,10 @@
+import os
+
+class Config:
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'your-secret-key-here'
+    MONGODB_HOST = 'mongodb+srv://shahin:<your_actual_password>@cluster0.il8xc.mongodb.net/UTA_Enrollment?retryWrites=true&w=majority'
+    
+# __init__.py
 from flask import Flask
 from config import Config
 from flask_mongoengine import MongoEngine
@@ -6,30 +13,20 @@ import os
 app = Flask(__name__)
 app.config.from_object(Config)
 
-def configure_db():
-    """
-    Configure MongoDB connection for both local and Heroku environments
-    """
-    # Get MongoDB URI from environment variable (Heroku) or use local default
-    mongodb_uri = os.environ.get("MONGODB_URI", "mongodb+srv://shahin:memmedshahin12@cluster0.il8xc.mongodb.net/UTA_Enrollment?retryWrites=true&w=majority")
-    
-    if mongodb_uri:
-        # Parse username and password from mongodb_uri
-        app.config['MONGODB_SETTINGS'] = {
-            'host': mongodb_uri,
-            'connect': True,
-            'connectTimeoutMS': 30000,
-            'socketTimeoutMS': 30000,
-            'serverSelectionTimeoutMS': 30000
-        }
-
+# Configure MongoDB Atlas connection
+app.config['MONGODB_SETTINGS'] = {
+    'host': app.config['MONGODB_HOST'],
+    'connect': True,
+    'connectTimeoutMS': 30000,
+    'socketTimeoutMS': 30000,
+    'serverSelectionTimeoutMS': 30000
+}
 
 # Initialize MongoDB
 db = MongoEngine()
-configure_db()
 db.init_app(app)
 
-# Import routes after db initialization to avoid circular imports
+# Import routes after db initialization
 from application import routes
 
 if __name__ == '__main__':
