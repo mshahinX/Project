@@ -21,8 +21,6 @@ app.config['MONGODB_SETTINGS'] = {
 
 db = MongoEngine(app)
 
-from application import routes
-
 # Import routes after db initialization
 from application import routes
 

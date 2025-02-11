@@ -103,3 +103,11 @@ footer {
     color:red
 }
 
+.user {
+    float: right;
+    position: absolute;
+    font-size: 25px;
+    right: 4em;
+    top: 2em; 
+
+}
